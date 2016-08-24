@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: pyspark-notebook
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+       app: pyspark-notebook
+    spec:
+      containers:
+      - name: pyspark-notebook
+        image: jupyter/pyspark-notebook
+        ports:
+        - containerPort: 8888
+
