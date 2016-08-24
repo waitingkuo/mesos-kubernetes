@@ -11,22 +11,22 @@ spec:
     spec:
       containers:
       - name: mesos-agent
-        image: mesosphere/mesos-slave:1.0.0
-        command: ["--containerizers=docker"]
+        image: linkerrepository/mesos-slave:0.28.1
+        command: ["mesos-slave"]
         securityContext:
           privileged: true
         ports:
         - containerPort: 5051
         volumeMounts:
         - mountPath: /var/run/docker.sock
-          name: docker
-        - mountPath: /cgroup
+          name: docker-sock
+        - mountPath: /sys/fs/cgroup
           name: cgroup
-        - mountPath: /usr/local/bin/docker
-          name: docker
         env:
         - name: MESOS_PORT
           value: "5051"
+        - name: MESOS_CONTAINERIZERS
+          value: "docker"
         - name: MESOS_MASTER
           value: zk://zookeeper:2181/mesos
         - name: MESOS_QUORUM
@@ -41,8 +41,5 @@ spec:
           path: /var/run/docker.sock
       - name: cgroup
         hostPath:
-          path: /cgroup
-      - name: docker
-        hostPath:
-          path: /usr/bin/docker
+          path: /sys/fs/cgroup
 

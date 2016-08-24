@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mesos-master
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mesos-master
+    spec:
+      containers:
+      - name: mesos-master
+        image: linkerrepository/mesos-master:0.28.1
+        command: ["mesos-master"]
+        ports:
+        - containerPort: 5050
+        env:
+        - name: MESOS_PORT
+          value: "5050"
+        - name: MESOS_ZK
+          value: zk://zookeeper:2181/mesos
+        - name: MESOS_QUORUM
+          value: "1"
+        - name: MESOS_LOG_DIR
+          value: /var/log/mesos
+        - name: MESOS_WORK_DIR
+          value: /var/tmp/mesos
+
