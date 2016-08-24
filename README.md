@@ -13,4 +13,4 @@ Mesos on Kubernetes
 
 # Known Issue
   
-    Pyspark use client mode to work with Mesos cluster. The framework can send SUBSCRIBE to the mesos master. But seems it doesn't confirm when Mesos master offer back
+Pyspark use client mode to work with Mesos cluster. The framework can send SUBSCRIBE to the mesos master. But seems it doesn't confirm when Mesos master offer back
